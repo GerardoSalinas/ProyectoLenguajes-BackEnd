@@ -2,6 +2,8 @@ package unah.lenguajes.hn.proyecto.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +35,7 @@ public class Comercio {
     @JoinColumn(name="ID_Ubicacion", referencedColumnName = "ID")
     private Ubicacion ubicacion;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "comercio")
     private List<Orden> orden;
 
