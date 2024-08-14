@@ -26,7 +26,7 @@ public class Repartidor {
     private String primerNombre;
 
     @Column(name="segundonombre")
-    private String segundoNomrbe;
+    private String segundoNombre;
 
     @Column(name="primerapellido")
     private String primerApellido;

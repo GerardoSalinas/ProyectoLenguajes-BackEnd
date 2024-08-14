@@ -3,6 +3,7 @@ package unah.lenguajes.hn.proyecto.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,15 +31,15 @@ public class Orden {
     @Column(name="estado")
     private String estado;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ID_Comercio", referencedColumnName = "id")
     private Comercio comercio;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ID_Repartidor", referencedColumnName = "dni")
     private Repartidor repartidor;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ID_Cliente", referencedColumnName = "dni")
     private Persona persona;
 

@@ -1,5 +1,7 @@
 package unah.lenguajes.hn.proyecto.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,40 @@ public class PersonaService {
                 personaActual = this.personaRepository.save(nvaPersona);
             }
             return personaActual;
+        }
+        return null;
+    }
+
+    public List<Persona> obtenerTodos(){
+        return this.personaRepository.findAll();
+    }
+
+    public Persona editarPersona(String dni, Persona nvaPersona){
+        if (this.personaRepository.existsById(dni)){
+            Persona personaActual = this.personaRepository.findById(dni).get();
+            personaActual.setPrimerNombre(nvaPersona.getPrimerNombre());
+            personaActual.setSegundoNombre(nvaPersona.getSegundoNombre());
+            personaActual.setPrimerApellido(nvaPersona.getPrimerApellido());
+            personaActual.setSegundoApellido(nvaPersona.getSegundoApellido());
+            personaActual.setTelefono(nvaPersona.getTelefono());
+            personaActual.setCorreo(nvaPersona.getCorreo());
+            return this.personaRepository.save(personaActual);
+        }
+        return null;
+    }
+
+    public  String eliminar(String dni){
+        if (this.personaRepository.existsById(dni)){
+            Persona personaEliminar = this.personaRepository.findById(dni).get();
+            this.personaRepository.delete(personaEliminar);
+            return "Registro eliminado correctamente";
+        }
+        return "No se pudo eliminar el registro";
+    }
+
+    public Persona obtenerPersona (String dni){
+        if (this.personaRepository.existsById(dni)){
+            return this.personaRepository.findById(dni).get();
         }
         return null;
     }
