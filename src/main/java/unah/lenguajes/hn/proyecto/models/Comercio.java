@@ -16,11 +16,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="comercios")
+@Table(name="Comercios")
 @Data
 public class Comercio {
     @Id
-    @Column(name="id")
+    @Column(name="ID")
     private String id;
     
     @Column(name="nombre")
@@ -30,7 +30,7 @@ public class Comercio {
     private String imagen;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Ubicacion", referencedColumnName = "id")
+    @JoinColumn(name="ID_Ubicacion", referencedColumnName = "ID")
     private Ubicacion ubicacion;
 
     @OneToMany(mappedBy = "comercio")

@@ -12,25 +12,25 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="usuarios")
+@Table(name="Usuarios")
 @Data
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private long id;
 
-    @Column(name="nombre")
+    @Column(name="Nombre")
     private String nombre ;
 
-    @Column(name="contrasenia")
+    @Column(name="Contrasenia")
     private String contrasenia;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Tipo_Usuario", referencedColumnName = "id")
+    @JoinColumn(name="ID_Tipo_Usuario", referencedColumnName = "ID")
     private TipoUsuario tipoUsuario;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Persona", referencedColumnName = "dni")
+    @JoinColumn(name="ID_Persona", referencedColumnName = "DNI")
     private Persona persona;
 }

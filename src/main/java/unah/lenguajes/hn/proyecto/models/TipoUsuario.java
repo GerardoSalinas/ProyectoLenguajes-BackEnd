@@ -9,12 +9,12 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="tipos_usuarios")
+@Table(name="Tipos_Usuarios")
 @Data
 public class TipoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private long id;
 
     @Column(name="tipo")
