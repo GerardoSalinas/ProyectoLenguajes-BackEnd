@@ -15,23 +15,23 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="repartidores")
+@Table(name="Repartidores")
 @Data
 public class Repartidor {
     @Id
-    @Column(name="dni")
+    @Column(name="DNI")
     private String dni;
 
-    @Column(name="primernombre")
+    @Column(name="primerNombre")
     private String primerNombre;
 
-    @Column(name="segundonombre")
+    @Column(name="segundoNombre")
     private String segundoNombre;
 
-    @Column(name="primerapellido")
+    @Column(name="primerApellido")
     private String primerApellido;
 
-    @Column(name="segundoapellido")
+    @Column(name="segundoApellido")
     private String segundoApellido;
 
     @Column(name="telefono")
@@ -46,11 +46,11 @@ public class Repartidor {
     @Column(name="habilitado")
     private boolean hailitado;
     
-    @Column(name="puntajepromedio")
+    @Column(name="puntaje_Promedio")
     private float puntajePromedio;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Ubicacion", referencedColumnName = "id")
+    @JoinColumn(name="ID_Ubicacion", referencedColumnName = "ID")
     private Ubicacion ubicacion;
 
     @JsonIgnore

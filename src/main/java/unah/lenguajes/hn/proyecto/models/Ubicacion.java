@@ -9,20 +9,20 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="ubicaciones")
+@Table(name="Ubicaciones")
 @Data
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private long id;
 
-    @Column(name="latitud")
+    @Column(name="Latitud")
     private double latitud;
     
-    @Column(name="longitud")
+    @Column(name="Longitud")
     private double longitud;
     
-    @Column(name="descripcion")
+    @Column(name="Descripcion")
     private String descripcion;
 }

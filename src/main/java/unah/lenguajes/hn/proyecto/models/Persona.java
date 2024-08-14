@@ -12,11 +12,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="personas")
+@Table(name="Personas")
 @Data
 public class Persona {
     @Id
-    @Column(name="dni")
+    @Column(name="DNI")
     private String dni;
 
     @Column(name="primernombre")

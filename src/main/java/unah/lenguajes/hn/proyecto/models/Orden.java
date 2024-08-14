@@ -17,30 +17,30 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="ordenes")
+@Table(name="Ordenes")
 @Data
 public class Orden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private long id;
 
-    @Column(name="fechahora")
+    @Column(name="Fecha_Hora")
     private LocalDateTime fechaHora;
 
-    @Column(name="estado")
+    @Column(name="Estado")
     private String estado;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Comercio", referencedColumnName = "id")
+    @JoinColumn(name="ID_Comercio", referencedColumnName = "ID")
     private Comercio comercio;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Repartidor", referencedColumnName = "dni")
+    @JoinColumn(name="ID_Repartidor", referencedColumnName = "DNI")
     private Repartidor repartidor;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ID_Cliente", referencedColumnName = "dni")
+    @JoinColumn(name="ID_Cliente", referencedColumnName = "DNI")
     private Persona persona;
 
     @ManyToMany(mappedBy = "ordenes")
