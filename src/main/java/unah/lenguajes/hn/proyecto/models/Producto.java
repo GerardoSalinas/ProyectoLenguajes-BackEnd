@@ -2,6 +2,8 @@ package unah.lenguajes.hn.proyecto.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,31 +16,32 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="productos")
+@Table(name="Productos")
 @Data
 public class Producto {
     @Id
-    @Column(name="id")
+    @Column(name="ID")
     private String id;
 
-    @Column(name="nombre")
+    @Column(name="Nombre")
     private String nombre;
     
     
-    @Column(name="descripcion")
+    @Column(name="Descripcion")
     private String descripcion;
     
     
-    @Column(name="precio")
+    @Column(name="Precio")
     private double precio;
     
     
-    @Column(name="imagen")
+    @Column(name="Imagen")
     private String imagen;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "productos_comercios",
+        name = "Productos_Comercios",
         joinColumns = @JoinColumn(name="ID_Producto"),
         inverseJoinColumns = @JoinColumn(name="ID_Comercio")
     )
@@ -46,7 +49,7 @@ public class Producto {
 
     @ManyToMany
     @JoinTable(
-        name = "productos_ordenes",
+        name = "Productos_Ordenes",
         joinColumns = @JoinColumn(name="ID_Producto"),
         inverseJoinColumns = @JoinColumn(name="ID_Orden")
     )

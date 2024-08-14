@@ -11,18 +11,18 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="factura")
+@Table(name="Factura")
 @Data
 public class Factura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="ID")
     private long id;
 
-    @Column(name="costo_delivery")
+    @Column(name="Costo_Delivery")
     private float costoDelivery;
 
     @OneToOne
-    @JoinColumn(name="ID_Orden",referencedColumnName = "id")
+    @JoinColumn(name="ID_Orden",referencedColumnName = "ID")
     private Orden orden;
 }
