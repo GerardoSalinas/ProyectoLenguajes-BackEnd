@@ -27,10 +27,9 @@ public class ProductoService {
             if (nvoProducto.getComercios() != null){
                 List<Comercio> comercios =  nvoProducto.getComercios();
                 for (Comercio  comercioActual: comercios) {
-                    if (!this.comercioRepository.existsById(comercioActual.getId())){
-                        this.ubicacionRepository.save(comercioActual.getUbicacion());
-                        this.comercioRepository.save(comercioActual);
-                    }
+                   List<Producto> productos = this.comercioRepository.findById(comercioActual.getId()).get().getProductos();
+                   productos.add(nvoProducto);
+                
                 }
             }
             return this.productoRepository.save(nvoProducto);
