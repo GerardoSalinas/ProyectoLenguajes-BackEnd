@@ -3,6 +3,7 @@ package unah.lenguajes.hn.proyecto.models;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,7 +39,7 @@ public class Producto {
     @Column(name="Imagen")
     private String imagen;
 
-    @JsonIgnore
+    @JsonIgnoreProperties(value={"productos", "ubicacion"})
     @ManyToMany
     @JoinTable(
         name = "Productos_Comercios",

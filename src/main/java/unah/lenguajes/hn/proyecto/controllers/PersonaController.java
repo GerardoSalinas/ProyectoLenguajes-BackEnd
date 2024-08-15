@@ -37,6 +37,12 @@ public class PersonaController {
         return this.personaService.obtenerTodos();
     }
 
+    @GetMapping("/clientes/todos")
+    public List<Persona> obtenerClientes() {
+        return this.personaService.obtenerClientes();
+    }
+    
+
     @GetMapping("/{dni}")
     public Persona obtenerPersona(@PathVariable String dni) {
         return this.personaService.obtenerPersona(dni);
