@@ -1,5 +1,6 @@
 package unah.lenguajes.hn.proyecto.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,18 @@ public class PersonaService {
 
     public List<Persona> obtenerTodos(){
         return this.personaRepository.findAll();
+    }
+
+    public List<Persona> obtenerClientes(){
+        List<Persona> personas = this.personaRepository.findAll();
+        List<Persona> clientes = new ArrayList<>();
+
+        for(Persona persona:personas){
+            if(persona.getUsuario().getTipoUsuario().getTipo().equalsIgnoreCase("cliente")){
+                clientes.add(persona);
+            }
+        }
+        return clientes;
     }
 
     public Persona editarPersona(String dni, Persona nvaPersona){

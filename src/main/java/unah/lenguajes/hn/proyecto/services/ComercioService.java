@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import unah.lenguajes.hn.proyecto.models.Comercio;
 import unah.lenguajes.hn.proyecto.models.Persona;
+import unah.lenguajes.hn.proyecto.models.Producto;
 import unah.lenguajes.hn.proyecto.models.Ubicacion;
 import unah.lenguajes.hn.proyecto.repositories.ComercioRepository;
+import unah.lenguajes.hn.proyecto.repositories.ProductoRepository;
 import unah.lenguajes.hn.proyecto.repositories.UbicacionRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class ComercioService {
 
     @Autowired
     private UbicacionRepository ubicacionRepository;
+
+    @Autowired
+    private ProductoRepository productoRepository;
 
     public String crearComercio(Comercio comercio){
         if (!this.comercioRepository.existsById(comercio.getId())){
@@ -66,5 +71,14 @@ public class ComercioService {
             return "Comercio eliminado correctamente";
         }
         return "No se pudo eliminar el comercio";
+    }
+
+    public List<Producto> obtenerProductosPorComercio(String id){
+        if(this.comercioRepository.findById(id).get().getProductos() != null){
+        List<Producto> productos = this.comercioRepository.findById(id).get().getProductos();
+        return productos;
+        }else{
+            return null;
+        }
     }
 }
