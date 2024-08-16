@@ -33,7 +33,7 @@ public class ProductoController {
     }
     
     @PostMapping("/crear")
-    public Producto crear(@RequestBody Producto nvoProducto){
+    public String crear(@RequestBody Producto nvoProducto){
         return this.productoService.crear(nvoProducto);
     }
 

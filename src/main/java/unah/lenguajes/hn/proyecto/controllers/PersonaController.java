@@ -28,7 +28,7 @@ public class PersonaController {
     private PersonaService personaService;
 
     @PostMapping("/crear")
-    public Persona crearPersona(@RequestBody Persona nvaPersona) {
+    public String crearPersona(@RequestBody Persona nvaPersona) {
         return this.personaService.crear(nvaPersona);
     }
 

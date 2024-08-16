@@ -23,19 +23,23 @@ public class ProductoService {
     @Autowired
     private UbicacionRepository ubicacionRepository;
 
-    public Producto crear(Producto nvoProducto){
-        if (!this.productoRepository.existsById(nvoProducto.getId())){
-            if (nvoProducto.getComercios() != null){
-                List<Comercio> comercios =  nvoProducto.getComercios();
-                for (Comercio  comercioActual: comercios) {
-                   List<Producto> productos = this.comercioRepository.findById(comercioActual.getId()).get().getProductos();
-                   productos.add(nvoProducto);
-                
-                }
+    public String crear(Producto nvoProducto){
+        if (this.productoRepository.existsById(nvoProducto.getId())) {
+            
+        if (nvoProducto.getComercios()!=null) {
+            List<Comercio> comercios = nvoProducto.getComercios();        
+            nvoProducto.setComercios(null);
+            List<Comercio> comercioAsociados = new ArrayList<>();
+            nvoProducto.setComercios(comercioAsociados);
+            for (Comercio comercio : comercios) {
+                nvoProducto.getComercios().add(this.comercioRepository.findById(comercio.getId()).get());
             }
-            return this.productoRepository.save(nvoProducto);
+           this.productoRepository.save(nvoProducto);
+           return "se creo correctamente";
         }
-        return null;
+        }  return "Producto ya existe";  
+            
+       
     }
 
     public Producto obtenerProducto(String id){
