@@ -24,7 +24,7 @@ public class PersonaService {
     @Autowired
     private TipoUsuarioRepository tipoUsuarioRepository;
 
-    public Persona crear(Persona nvaPersona){
+    public String crear(Persona nvaPersona){
         if (!this.personaRepository.existsById(nvaPersona.getDni())){
             Usuario usuarioActual = nvaPersona.getUsuario();
             Persona personaActual = new Persona();
@@ -34,9 +34,9 @@ public class PersonaService {
                 this.usuarioRepository.save(usuarioActual);
                 personaActual = this.personaRepository.save(nvaPersona);
             }
-            return personaActual;
+            return "se creo correctamente";
         }
-        return null;
+        return "Ya existe Cliente con ese DNI";
     }
 
     public List<Persona> obtenerTodos(){
