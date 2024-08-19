@@ -7,6 +7,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -44,5 +45,9 @@ public class Persona {
     @JsonIgnoreProperties(value = {"persona"})
     @OneToOne(mappedBy = "persona")
     private Usuario usuario;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ID_Ubicacion", referencedColumnName = "ID")
+    private Ubicacion ubicacion;
 
 }
