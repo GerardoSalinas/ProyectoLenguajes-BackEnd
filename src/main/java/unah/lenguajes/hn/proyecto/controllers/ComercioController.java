@@ -43,7 +43,7 @@ public class ComercioController {
     }
     
     @PutMapping("/editar/{id}")
-    public Comercio editar(@PathVariable String id, @RequestBody Comercio nvoComercio) {        
+    public String editar(@PathVariable String id, @RequestBody Comercio nvoComercio) {        
         return this.comercioService.editarComercio(id,nvoComercio);
     }
 

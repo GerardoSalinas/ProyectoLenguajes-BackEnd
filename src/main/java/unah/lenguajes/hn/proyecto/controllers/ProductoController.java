@@ -3,6 +3,7 @@ package unah.lenguajes.hn.proyecto.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,13 @@ public class ProductoController {
     @PostMapping("/asociar/{id}")
     public Producto asociarProductoAComercio(@PathVariable String id, @RequestBody Producto nvoProducto) {
         return this.productoService.asociarProductoAComercio(id, nvoProducto);
+    }
+
+    @PutMapping("/editar/{id}")
+    public String editarProducto (@PathVariable String id,@RequestBody Producto nvProducto    ){
+
+        return this.productoService.editarProducto(id, nvProducto);
+
     }
     
     

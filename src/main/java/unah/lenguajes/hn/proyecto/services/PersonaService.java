@@ -27,17 +27,22 @@ public class PersonaService {
     public String crear(Persona nvaPersona){
         if (!this.personaRepository.existsById(nvaPersona.getDni())){
             Usuario usuarioActual = nvaPersona.getUsuario();
-            Persona personaActual = new Persona();
+            
             if (!this.usuarioRepository.existsByNombre(usuarioActual.getNombre())){
                 usuarioActual.setPersona(nvaPersona);
                 usuarioActual.setTipoUsuario(tipoUsuarioRepository.findById( (long) 2).get() );
                 this.usuarioRepository.save(usuarioActual);
-                personaActual = this.personaRepository.save(nvaPersona);
+                this.personaRepository.save(nvaPersona);
+                return "{\"status\":true,\"message\":\"se creo correctamente.\",\"alert\":\"success\"}";
+
             }
-            return "se creo correctamente";
+            return "{\"status\":false,\"message\":\"nombre de usuario existente.\",\"alert\":\"danger\"}" ;
+            
+           
         }
-        return "Ya existe Cliente con ese DNI";
+        return "{\"status\":false,\"message\":\"Ya existe Cliente con ese DNI.\",\"alert\":\"danger\"}";
     }
+
 
     public List<Persona> obtenerTodos(){
         return this.personaRepository.findAll();
