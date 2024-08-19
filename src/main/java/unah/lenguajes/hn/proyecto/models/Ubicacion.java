@@ -23,6 +23,6 @@ public class Ubicacion {
     @Column(name="Longitud")
     private double longitud;
     
-    @Column(name="Descripcion")
+    @Column(name="descripcion")
     private String descripcion;
 }
