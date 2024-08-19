@@ -69,6 +69,7 @@ public class PersonaService {
             personaActual.setSegundoApellido(nvaPersona.getSegundoApellido());
             personaActual.setTelefono(nvaPersona.getTelefono());
             personaActual.setCorreo(nvaPersona.getCorreo());
+            personaActual.setUbicacion(nvaPersona.getUbicacion());
             return this.personaRepository.save(personaActual);
         }
         return null;

@@ -37,6 +37,17 @@ public class RepartidorController {
         return this.repartidorService.obtenerRepartidor(dni);
     }
 
+    @GetMapping("/todos/disponibles")
+    public List<Repartidor> obtenerDisponibles() {
+        return this.repartidorService.obtenerDisponibles();
+    }
+    
+    @GetMapping("/mascercano/{comercioID}")
+    public Repartidor obtenerRepartidorMasCercano(@PathVariable(name="comercioID") String comercioID) {
+        return this.repartidorService.obtenerRepartidorMasCercano(comercioID);
+    }
+    
+
     @PostMapping("/crear")
     public Repartidor crear(@RequestBody Repartidor nvoRepartidor) {
         return this.repartidorService.crearRepartidor(nvoRepartidor);
