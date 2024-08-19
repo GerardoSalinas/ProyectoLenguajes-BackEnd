@@ -24,7 +24,7 @@ public class ProductoService {
     private UbicacionRepository ubicacionRepository;
 
     public String crear(Producto nvoProducto){
-        if (this.productoRepository.existsById(nvoProducto.getId())) {
+        if (!this.productoRepository.existsById(nvoProducto.getId())) {
             
         if (nvoProducto.getComercios()!=null) {
             List<Comercio> comercios = nvoProducto.getComercios();        
@@ -35,9 +35,9 @@ public class ProductoService {
                 nvoProducto.getComercios().add(this.comercioRepository.findById(comercio.getId()).get());
             }
            this.productoRepository.save(nvoProducto);
-           return "se creo correctamente";
+           return "{\"status\":true,\"message\":\"Producto creado correctamente.\",\"alert\":\"success\"}";
         }
-        }  return "Producto ya existe";  
+        }  return "{\"status\":false,\"message\":\"Codigo de producto existente.\",\"alert\":\"danger\"}";
             
        
     }
@@ -61,5 +61,26 @@ public class ProductoService {
         comerciosAsociados.add(comercioAsociar);
         productoAgregar.setComercios(comerciosAsociados);
         return this.productoRepository.save(productoAgregar);
+    }
+    public String editarProducto(String id, Producto nvProducto){
+        if (this.productoRepository.existsById(id)) {
+            Producto producto = this.productoRepository.findById(id).get();
+            producto.setNombre(nvProducto.getNombre());
+            producto.setDescripcion(nvProducto.getDescripcion());
+            producto.setPrecio(nvProducto.getPrecio());
+            producto.setImagen(nvProducto.getImagen());
+            List<Comercio> comercios = nvProducto.getComercios();        
+            
+            for (Comercio comercio : comercios) {
+                producto.getComercios().add(this.comercioRepository.findById(comercio.getId()).get());
+            }
+
+
+            this.productoRepository.save(producto);
+            return "{\"status\":true,\"message\":\"Producto editato correctamente.\",\"alert\":\"success\"}";
+        
+        }  return "{\"status\":false,\"message\":\"No existe Producto.\",\"alert\":\"danger\"}";
+            
+
     }
 }
