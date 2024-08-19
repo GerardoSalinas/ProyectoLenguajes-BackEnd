@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import unah.lenguajes.hn.proyecto.models.Persona;
 import unah.lenguajes.hn.proyecto.models.TipoUsuario;
+import unah.lenguajes.hn.proyecto.models.Ubicacion;
 import unah.lenguajes.hn.proyecto.models.Usuario;
 import unah.lenguajes.hn.proyecto.repositories.PersonaRepository;
 import unah.lenguajes.hn.proyecto.repositories.TipoUsuarioRepository;
+import unah.lenguajes.hn.proyecto.repositories.UbicacionRepository;
 import unah.lenguajes.hn.proyecto.repositories.UsuarioRepository;
 
 @Service
@@ -24,12 +26,23 @@ public class PersonaService {
     @Autowired
     private TipoUsuarioRepository tipoUsuarioRepository;
 
+    @Autowired
+    private UbicacionRepository ubicacionRepository;
+
     public String crear(Persona nvaPersona){
         if (!this.personaRepository.existsById(nvaPersona.getDni())){
             Usuario usuarioActual = nvaPersona.getUsuario();
             Persona personaActual = new Persona();
             if (!this.usuarioRepository.existsByNombre(usuarioActual.getNombre())){
                 usuarioActual.setPersona(nvaPersona);
+                Ubicacion nvaUbicacion = nvaPersona.getUbicacion(); 
+                List<Ubicacion> ubicaciones = this.ubicacionRepository.findAll();
+                for(Ubicacion u : ubicaciones){
+                    if (u.getLongitud() == nvaUbicacion.getLongitud()){
+                        return "Esa ubicacion ya fué asignada a otra entidad. Use otra direccion";
+                    }
+                }
+                this.ubicacionRepository.save(nvaPersona.getUbicacion());
                 usuarioActual.setTipoUsuario(tipoUsuarioRepository.findById( (long) 2).get() );
                 this.usuarioRepository.save(usuarioActual);
                 personaActual = this.personaRepository.save(nvaPersona);
@@ -83,6 +96,13 @@ public class PersonaService {
         if (this.personaRepository.existsById(dni)){
             return this.personaRepository.findById(dni).get();
         }
+        return null;
+    }
+
+    public Persona obtenerPorCorreo(String correo){
+        if (this.personaRepository.existsByCorreo(correo)){
+            return this.personaRepository.findByCorreo(correo);
+        }   
         return null;
     }
 }
