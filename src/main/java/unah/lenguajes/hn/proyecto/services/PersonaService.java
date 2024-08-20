@@ -29,32 +29,25 @@ public class PersonaService {
     @Autowired
     private UbicacionRepository ubicacionRepository;
 
-    public String crear(Persona nvaPersona){
-        if (!this.personaRepository.existsById(nvaPersona.getDni())){
+
+    public String crear(Persona nvaPersona) {
+        if (!this.personaRepository.existsById(nvaPersona.getDni())) {
             Usuario usuarioActual = nvaPersona.getUsuario();
             
-            if (!this.usuarioRepository.existsByNombre(usuarioActual.getNombre())){
+            if (!this.usuarioRepository.existsByNombre(usuarioActual.getNombre())) {
                 usuarioActual.setPersona(nvaPersona);
-                Ubicacion nvaUbicacion = nvaPersona.getUbicacion(); 
-                List<Ubicacion> ubicaciones = this.ubicacionRepository.findAll();
-                for(Ubicacion u : ubicaciones){
-                    if (u.getLongitud() == nvaUbicacion.getLongitud()){
-                        return "Esa ubicacion ya fué asignada a otra entidad. Use otra direccion";
-                    }
-                }
-                this.ubicacionRepository.save(nvaPersona.getUbicacion());
-                usuarioActual.setTipoUsuario(tipoUsuarioRepository.findById( (long) 2).get() );
+                usuarioActual.setTipoUsuario(tipoUsuarioRepository.findById((long) 2).get());
                 this.usuarioRepository.save(usuarioActual);
                 this.personaRepository.save(nvaPersona);
-                return "{\"status\":true,\"message\":\"se creo correctamente.\",\"alert\":\"success\"}";
-
+                return "{\"status\": true, \"message\": \"Se creó correctamente.\", \"alert\": \"success\"}";
             }
-            return "{\"status\":false,\"message\":\"nombre de usuario existente.\",\"alert\":\"danger\"}" ;
             
-           
+            return "{\"status\": false, \"message\": \"Nombre de usuario existente.\", \"alert\": \"danger\"}";
         }
-        return "{\"status\":false,\"message\":\"Ya existe Cliente con ese DNI.\",\"alert\":\"danger\"}";
+        
+        return "{\"status\": false, \"message\": \"Ya existe Cliente con ese DNI.\", \"alert\": \"danger\"}";
     }
+
 
 
     public List<Persona> obtenerTodos(){

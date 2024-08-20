@@ -70,9 +70,14 @@ public class ProductoService {
             producto.setPrecio(nvProducto.getPrecio());
             producto.setImagen(nvProducto.getImagen());
             List<Comercio> comercios = nvProducto.getComercios();        
-            
-            for (Comercio comercio : comercios) {
-                producto.getComercios().add(this.comercioRepository.findById(comercio.getId()).get());
+            if (comercios != null){
+                List<Comercio> nuevosComercios = new ArrayList<>();
+                producto.setComercios(nuevosComercios);
+                for (Comercio comercio : comercios) {
+                
+                    producto.getComercios().add(this.comercioRepository.findById(comercio.getId()).get());
+                }
+
             }
 
 
