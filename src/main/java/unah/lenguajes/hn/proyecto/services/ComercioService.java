@@ -30,15 +30,15 @@ public class ComercioService {
                 List<Ubicacion> ubicacionesLatitud = this.ubicacionRepository.findByLatitud(comercio.getUbicacion().getLatitud());
                 for (Ubicacion ubicacionActual : ubicacionesLatitud) {
                     if (ubicacionActual.getLongitud() == comercio.getUbicacion().getLongitud()){
-                        return "El comercio debe tener una ubicacion unica";
+                        return  "{\"status\":false,\"message\":\"El comercio debe tener una ubicacion unica.\",\"alert\":\"danger\"}";
                     }
                 }
                 this.ubicacionRepository.save(comercio.getUbicacion());
             }
             this.comercioRepository.save(comercio);
-            return "Comercio creado correctamente";
+            return "{\"status\":true,\"message\":\"Comercio creado correctamente.\",\"alert\":\"success\"}";
         }
-        return "No se pudo crear el comercio";
+        return "{\"status\":false,\"message\":\"Codigo de comercio Existente.\",\"alert\":\"danger\"}";
     }
 
     public List<Comercio> obtenerTodos(){
@@ -52,16 +52,16 @@ public class ComercioService {
         return null;
     }
 
-    public Comercio editarComercio(String id, Comercio nvoComercio){
+    public String editarComercio(String id, Comercio nvoComercio){
         if (this.comercioRepository.existsById(id)){
             Comercio comercioActual = this.comercioRepository.findById(id).get();
             comercioActual.setNombre(nvoComercio.getNombre());
             comercioActual.setImagen(nvoComercio.getImagen());
-            comercioActual.setUbicacion(nvoComercio.getUbicacion());
-            comercioActual.setProductos(nvoComercio.getProductos());
-            return this.comercioRepository.save(comercioActual);
+            comercioActual.setUbicacion(nvoComercio.getUbicacion()); 
+            this.comercioRepository.save(comercioActual);       
+            return "{\"status\":true,\"message\":\"Comercio editado correctamente.\",\"alert\":\"success\"}" ;
         }
-        return null;
+        return "{\"status\":false,\"message\":\"No existe tal comercio.\",\"alert\":\"danger\"}";
     }
 
     public String eliminar(String id){
