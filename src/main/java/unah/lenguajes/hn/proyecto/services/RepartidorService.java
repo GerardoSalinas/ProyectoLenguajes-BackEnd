@@ -90,7 +90,7 @@ public class RepartidorService {
     }
 
     public double Haversine(Ubicacion origen, Ubicacion destino){
-            // Convertir latitudes y longitudes de grados a radianes
+            
             final double RADIO_TIERRA_KM = 6371;
 
             double latitudOrigen = Math.toRadians(origen.getLatitud());
@@ -117,12 +117,16 @@ public class RepartidorService {
         Ubicacion ubicacionComercio = this.comercioRepository.findById(comercioID).get().getUbicacion();
         List<Repartidor> repartidoresDisponibles = this.obtenerDisponibles();
         double distanciaMasCorta = this.Haversine(repartidoresDisponibles.get(0).getUbicacion() , ubicacionComercio);
-        Repartidor repartidorMasCercano = null;
+        System.out.println(distanciaMasCorta);
+        Repartidor repartidorMasCercano = repartidoresDisponibles.get(0);
         for (Repartidor r: repartidoresDisponibles){
             double distanciaActual = this.Haversine(r.getUbicacion(), ubicacionComercio);
             if (distanciaActual < distanciaMasCorta){
+                System.out.printf("distancia mas corta: %d",distanciaMasCorta);
                 distanciaMasCorta = distanciaActual;
+                System.out.printf("distancia actual: %d",distanciaActual);
                 repartidorMasCercano = r;
+                System.out.printf("repartidor actual: %s",r);
             }
         }
         return repartidorMasCercano;

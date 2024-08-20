@@ -1,6 +1,7 @@
 package unah.lenguajes.hn.proyecto.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import unah.lenguajes.hn.proyecto.models.Persona;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 
+//@CrossOrigin(origins = "http://localhost:80")
+// @CrossOrigin(
+//     origins = {
+//         "http://localhost:80"
+//         },
+//     methods = {
+//                 RequestMethod.GET,
+//                 RequestMethod.PUT,
+//                 RequestMethod.POST
+// })
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 @RequestMapping("/api/persona")
 public class PersonaController {
@@ -46,6 +59,12 @@ public class PersonaController {
     @GetMapping("/{dni}")
     public Persona obtenerPersona(@PathVariable String dni) {
         return this.personaService.obtenerPersona(dni);
+    }
+
+    @CrossOrigin(origins="http://localhost:8091/delivery-app/public/inicio/comercio/productos" )
+    @GetMapping("/correo/{correo}")
+    public Persona obtenerPorCorreo(@PathVariable(name="correo") String correo) {
+        return this.personaService.obtenerPorCorreo(correo);
     }
     
     
